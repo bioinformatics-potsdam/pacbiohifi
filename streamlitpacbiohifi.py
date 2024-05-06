@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 st.markdown("PacBioHifi Analyzer for the Universitat Potsdam")
-st.markdown("developed by Gaurav Sablok, Academic Staff Member, Bioinformatics")
+st.markdown("developed by Gaurav Sablok, Academic Staff Member, Bioinformatics, Institute for Biochemistry and Biology University of Potsdam, Potsdam,Germany")
 # read = st.file_uploader("Upload the PacBiohifi reads")
 filepath = st.text_input("enter the file path")
 if filepath:
