@@ -1,4 +1,4 @@
-# streamlit-pabiohifi
+# streamlit-pacbiohifi
 
 To run the application, use 
 ```
@@ -12,5 +12,7 @@ Gaurav \
 Academic Staff Member \
 Bioinformatics \
 Institute for Biochemistry and Biology \
+University of Potsdam \
+Potsdam,Germany
 
 
