@@ -5,9 +5,11 @@ To run the application, use
 conda activate streamlit
 streamlit run streamlitpacbiohifi.py 
 ```
-
 - provide the path and select the options which you need. If you have bigger files then add .toml file in the directory with the size specified. 
-- These are indiviual components and a multi page application which will give you all access to PacBioHifi from sequence to graphs. 
+- These are indiviual components and a multi page application which will give you all access to PacBioHifi from sequence to graphs.
+- The app will open like this.
+  
+![streamlit-pacbiohifi](https://github.com/gauravearn/streamlit-pacbiohifi/blob/main/streamlitpacbiohifi.png)
 
 Gaurav \
 Academic Staff Member \
