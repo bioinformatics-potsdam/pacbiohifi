@@ -12,6 +12,10 @@ streamlit run streamlitpacbiohifi.py
   
 ![streamlit-pacbiohifi](https://github.com/gauravearn/streamlit-pacbiohifi/blob/main/streamlitpacbiohifi.png)
 
+- added support for both PacBioHifi fastq and fasta. It will prompt a window for the option to select.
+
+![streamlit-pacbiohifi](https://github.com/gauravearn/streamlit-pacbiohifi/blob/main/streamlitpacbiohifi_multiple.png)
+
 Gaurav \
 Academic Staff Member \
 Bioinformatics \
