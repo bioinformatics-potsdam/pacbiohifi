@@ -1,4 +1,5 @@
 # streamlit-pacbiohifi
+a streamlit component for reading and plotting the PacBioHiFi sequencing reads. 
 
 To run the application, use 
 ```
