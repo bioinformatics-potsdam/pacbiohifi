@@ -1,5 +1,10 @@
 # streamlit-pacbiohifi
-a streamlit component for reading and plotting the PacBioHiFi sequencing reads. 
+- a streamlit component for reading and plotting the PacBioHiFi sequencing reads.
+- new components added such as
+   -- filter read length and write filtered fasta reads.
+   -- read visualization pre and post filtering.
+   -- pattern matching.
+   -- specific region extractor.
 
 To run the application, use 
 ```
