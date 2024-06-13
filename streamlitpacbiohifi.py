@@ -4,15 +4,15 @@
 # a streamlit application for the pacbiohifi from the sequencing to the read
 import streamlit as st
 import pandas as pd
+
 st.set_page_config(
-    page_title="PacBioHifi Analyzer",
-    page_icon="Universitat Potsdam",
-    layout="centered",
-    initial_sidebar_state="auto",
-)
-st.markdown("PacBioHifi Analyzer for the Universitat Potsdam")
-st.markdown("developed by Gaurav Sablok, Academic Staff Member, Bioinformatics")
-st.markdown("Institute for Biochemistry and Biology University of Potsdam, Potsdam,Germany")
+                 page_title="Graph Ontology",
+                 page_icon="Universitat Potsdam",
+                 layout="centered",
+                 initial_sidebar_state="expanded")
+
+st.header("PacBioHifi Analyzer Universitat Potsdam")
+st.subheader("Developed by Gaurav Sablok, Academic Staff Member, Bioinformatics, Universitat Potsdam, Germany")
 filetype = st.selectbox("Please select the type of the files: fastq or the fasta", ["fastq", "fasta"])
 if filetype == "fasta":
     filepath = st.text_input("enter the file path")
