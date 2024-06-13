@@ -14,6 +14,9 @@ st.image("https://www.uni-potsdam.de/typo3conf/ext/up_template/Resources/Public/
 st.header("PacBioHifi Analyzer Universitat Potsdam")
 st.subheader("Developed by Gaurav Sablok, Academic Staff Member, Bioinformatics, Universitat Potsdam, Germany")
 filetype = st.selectbox("Please select the type of the files: fastq or the fasta", ["fastq", "fasta"])
+filtering = st.button("Please press the button for the read filtering")
+storingstring = st.text_input("Please enter the string pattern that you want to check in the reads")
+patternstring = st.text_input("Please enter the string that you want to extract")
 if filetype == "fasta":
     filepath = st.text_input("enter the file path")
     read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
@@ -85,3 +88,123 @@ if filetype == "fastq":
         with open(fileoutput, "w") as writefile:
             for i in range(len(fastq_names)):
                 writefile.write(f">{fastq_names[i]}\n{fastq_sequences[i]}\n")
+
+# added new functions for the release this evening:
+# this will make the streamlit application complete for the PacbIohifi reads.
+# 1. filter length for fasta and fastq.
+# 2. plot filtered length vs the length of the original fasta
+# 3. pattern matching.
+# 4. extact regions.
+
+if filtering:
+    typefile = st.selectbox("Please select the type of the files: fastq or the fasta", ["fastq", "fasta"])
+    option = st.selectbox("Please select the option:",["read", "write"])
+    if typefile == "fasta" and option == "read":
+        filepath = st.text_input("enter the file path")
+        read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
+        fasta_dict = {}
+        for i in read_transcripts:
+            if i.startswith(">"):
+                path = i.strip()
+                if i not in fasta_dict:
+                    fasta_dict[i] = ""
+                continue
+            fasta_dict[path] += i.strip()
+        fasta_seq = list(fasta_dict.values())
+        fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
+        lenfasta = []
+        for i in range(len(fasta_seq)):
+            lenfasta.append(len(fasta_seq[i]))
+        lendata = pd.DataFrame(lenfasta, columns=["PacbioHifi Length"])
+        names = st.checkbox("Press if the fasta names are needed")
+        sequences = st.checkbox("Press if the fasta sequences are needed")
+        length = st.checkbox("Press if the length plot are needed")
+        if names:
+            st.write(f"the names are: {fasta_names}")
+        if sequences:
+            st.write(f"the sequences are:{fasta_seq}")
+        if length:
+            st.bar_chart(lendata)
+
+    if typefile == "fasta" and option == "write":
+        filepath = st.text_input("enter the file path")
+        filewrite = st.textinput("enter the file to write")
+        read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
+        fasta_dict = {}
+        for i in read_transcripts:
+            if i.startswith(">"):
+                path = i.strip()
+                if i not in fasta_dict:
+                    fasta_dict[i] = ""
+                continue
+            fasta_dict[path] += i.strip()
+        fasta_seq = list(fasta_dict.values())
+        fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
+        lenfasta = []
+        for i in range(len(fasta_seq)):
+            lenfasta.append(len(fasta_seq[i]))
+        lendata = pd.DataFrame(lenfasta, columns=["PacbioHifi Length"])
+        names = st.checkbox("Press if the fasta names are needed")
+        sequences = st.checkbox("Press if the fasta sequences are needed")
+        length = st.checkbox("Press if the length plot are needed")
+        if names:
+            st.write(f"the names are: {fasta_names}")
+        if sequences:
+            st.write(f"the sequences are:{fasta_seq}")
+        if length:
+            st.bar_chart(lendata)
+        with open(filewrite, "w") as writefile:
+            for i in range(len(fastq_names)):
+                writefile.write(f">{fastq_names[i]}\n{fastq_sequences[i]}\n")
+
+### string check
+if storingstring:
+    st.markdown("This option is only available for the fasta files")
+    filepath = st.text_input("Please enter the path for the fasta files")
+    read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
+        fasta_dict = {}
+        for i in read_transcripts:
+            if i.startswith(">"):
+                path = i.strip()
+                if i not in fasta_dict:
+                    fasta_dict[i] = ""
+                continue
+            fasta_dict[path] += i.strip()
+        fasta_seq = list(fasta_dict.values())
+        fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
+    selectedones = {}
+    for i in range(len(fasta_seq)):
+        if storingstring in fasta_seq[i]:
+            selectedones[fasta_names[i]] = fasta_seq[i]
+    with open(filepath, "w") as writefile:
+        for k,v in selectedones.items():
+            writefile.write(f">{fasta_names[i]}\n{fasta_sequences}")
+    st.write("The file has been written")
+
+### checkpatterns
+if patternstring:
+    st.markdown("This option is available for the fasta files")
+    st.markdown("Please convert your fastq file into fasta")
+    read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
+        fasta_dict = {}
+        for i in read_transcripts:
+            if i.startswith(">"):
+                path = i.strip()
+                if i not in fasta_dict:
+                    fasta_dict[i] = ""
+                continue
+            fasta_dict[path] += i.strip()
+        fasta_seq = list(fasta_dict.values())
+        fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
+    lengthpatternstring = len(patternstring)
+    selectedones = {}
+    for i in range(len(fasta_seq)):
+        selectedones[fasta_names[i]] = [fasta_seq[i].find(lengthpatternstring), int(fasta_seq[i].find(lengthpatternstring))+len(lengthpatternstring), fasta_seq[i]]
+    filteredones =
+
+
+
+
+
+
+
