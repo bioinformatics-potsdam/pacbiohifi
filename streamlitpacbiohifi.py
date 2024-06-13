@@ -6,11 +6,11 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(
-                 page_title="Graph Ontology",
+                 page_title="PacbioHifi Read Analyzer",
                  page_icon="Universitat Potsdam",
                  layout="centered",
                  initial_sidebar_state="expanded")
-
+st.image("https://www.uni-potsdam.de/typo3conf/ext/up_template/Resources/Public/Images/logos/up_logo_international_2.png", width = 100)
 st.header("PacBioHifi Analyzer Universitat Potsdam")
 st.subheader("Developed by Gaurav Sablok, Academic Staff Member, Bioinformatics, Universitat Potsdam, Germany")
 filetype = st.selectbox("Please select the type of the files: fastq or the fasta", ["fastq", "fasta"])
