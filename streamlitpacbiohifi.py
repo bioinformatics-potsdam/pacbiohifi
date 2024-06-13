@@ -89,13 +89,7 @@ if filetype == "fastq":
             for i in range(len(fastq_names)):
                 writefile.write(f">{fastq_names[i]}\n{fastq_sequences[i]}\n")
 
-# added new functions for the release this evening:
-# this will make the streamlit application complete for the PacbIohifi reads.
-# 1. filter length for fasta and fastq.
-# 2. plot filtered length vs the length of the original fasta
-# 3. pattern matching.
-# 4. extact regions.
-
+### filtering:
 if filtering:
     typefile = st.selectbox("Please select the type of the files: fastq or the fasta", ["fastq", "fasta"])
     option = st.selectbox("Please select the option:",["read", "write"])
@@ -213,3 +207,5 @@ if patternstring:
     with open(fileout, "w") as writefasta:
         for k,v in slicedout.items:
         writefile.write(f"{k}\n{v}")
+
+### pre filtered and post filtered plotting option.
