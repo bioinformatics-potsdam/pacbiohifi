@@ -185,6 +185,8 @@ if storingstring:
 if patternstring:
     st.markdown("This option is available for the fasta files")
     st.markdown("Please convert your fastq file into fasta")
+    filepath = st.text_input("Please enter the path for the fasta files")
+    fileout = st.text_input("Please enter the path for the output fasta files")
     read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
         fasta_dict = {}
         for i in read_transcripts:
@@ -200,11 +202,14 @@ if patternstring:
     selectedones = {}
     for i in range(len(fasta_seq)):
         selectedones[fasta_names[i]] = [fasta_seq[i].find(lengthpatternstring), int(fasta_seq[i].find(lengthpatternstring))+len(lengthpatternstring), fasta_seq[i]]
-    filteredones =
-
-
-
-
-
-
-
+    filteredones = [(k,v) for k,v in selectedones.items() if selectedones.values[0] != 0]
+    filterednames = list(filteredones.keys())
+    filteredstart = [i[0] for i in list(filteredones.values())]
+    filteredend = [i[1] for i in list(filteredones.values())]
+    filteredseq = [i[2] for i in list(filteredones.values())]
+    sliceout = {}
+    for i in range(len(filterednames)):
+        sliceout[filterednames[i]] = filteredseq[i][filteredstart:filteredend]
+    with open(fileout, "w") as writefasta:
+        for k,v in slicedout.items:
+        writefile.write(f"{k}\n{v}")
