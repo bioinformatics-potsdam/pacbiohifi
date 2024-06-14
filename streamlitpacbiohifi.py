@@ -98,6 +98,55 @@ if filetype == "fastq":
             for i in range(len(fastq_names)):
                 writefile.write(f">{fastq_names[i]}\n{fastq_sequences[i]}\n")
 
+### string check completed
+if storingstring:
+    st.markdown("This option is only available for the fasta files")
+    readpatternplot = st.checkbox("Do you want to plot the reads with the pattern")
+    filepath = st.text_input("Please enter the path for the fasta files")
+    read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
+        fasta_dict = {}
+        for i in read_transcripts:
+            if i.startswith(">"):
+                path = i.strip()
+                if i not in fasta_dict:
+                    fasta_dict[i] = ""
+                continue
+            fasta_dict[path] += i.strip()
+        fasta_seq = list(fasta_dict.values())
+        fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
+    selectedones = {}
+    for i in range(len(fasta_seq)):
+        if storingstring in fasta_seq[i]:
+            selectedones[fasta_names[i]] = fasta_seq[i]
+    with open(filepath, "w") as writefile:
+        for k,v in selectedones.items():
+            writefile.write(f">{k}\n{v}")
+    st.write("The file has been written")
+    if readpatternplot:
+        filepath = st.text_input("Please enter the path for the fasta files")
+        read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
+        fasta_dict = {}
+        for i in read_transcripts:
+            if i.startswith(">"):
+                path = i.strip()
+                if i not in fasta_dict:
+                    fasta_dict[i] = ""
+                continue
+            fasta_dict[path] += i.strip()
+        fasta_seq = list(fasta_dict.values())
+        fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
+    selectedones = {}
+    for i in range(len(fasta_seq)):
+        if storingstring in fasta_seq[i]:
+            selectedones[fasta_names[i]] = fasta_seq[i]
+    with open(filepath, "w") as writefile:
+        for k,v in selectedones.items():
+            writefile.write(f">{k}\n{v}")
+    st.write("The file has been written")
+    names = list(selectedones.keys())
+    selectedlength = list(map(lambda n: len(n),list(selectedones.values())))
+    st.bar_chart(selectedlength)
+
 ### filtering:
 if filtering:
     typefile = st.selectbox("Please select the type of the files: fastq or the fasta", ["fastq", "fasta"])
@@ -160,30 +209,6 @@ if filtering:
             for i in range(len(fastq_names)):
                 writefile.write(f">{fastq_names[i]}\n{fastq_sequences[i]}\n")
 
-### string check
-if storingstring:
-    st.markdown("This option is only available for the fasta files")
-    filepath = st.text_input("Please enter the path for the fasta files")
-    read_transcripts = [i.strip() for i in open(filepath, "r").readlines()]
-        fasta_dict = {}
-        for i in read_transcripts:
-            if i.startswith(">"):
-                path = i.strip()
-                if i not in fasta_dict:
-                    fasta_dict[i] = ""
-                continue
-            fasta_dict[path] += i.strip()
-        fasta_seq = list(fasta_dict.values())
-        fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
-    selectedones = {}
-    for i in range(len(fasta_seq)):
-        if storingstring in fasta_seq[i]:
-            selectedones[fasta_names[i]] = fasta_seq[i]
-    with open(filepath, "w") as writefile:
-        for k,v in selectedones.items():
-            writefile.write(f">{fasta_names[i]}\n{fasta_sequences}")
-    st.write("The file has been written")
-
 ### checkpatterns
 if patternstring:
     st.markdown("This option is available for the fasta files")
@@ -216,5 +241,3 @@ if patternstring:
     with open(fileout, "w") as writefasta:
         for k,v in slicedout.items:
         writefile.write(f"{k}\n{v}")
-
-### pre filtered and post filtered plotting option.
