@@ -14,7 +14,6 @@ st.set_page_config(
 st.image("https://www.uni-potsdam.de/typo3conf/ext/up_template/Resources/Public/Images/logos/up_logo_international_2.png", width = 100)
 st.header("PacBioHifi Analyzer Universitat Potsdam")
 st.subheader("Developed by Gaurav Sablok, Academic Staff Member, Bioinformatics, Universitat Potsdam, Germany")
-
 help = st.button("Display the help toggle button")
 if help:
     st.write("The following options are present in the Streamlit PacBioHifi application")
@@ -24,7 +23,6 @@ if help:
     st.write("4. FASTQ/FASTA length plotter")
     st.write("5. ReadChecker")
     st.write("6. ReadExtractor")
-
 filetype = st.selectbox("Please select the type of the files: fastq or the fasta", ["fastq", "fasta"])
 filtering = st.button("Please press the button for the read filtering")
 storingstring = st.text_input("Please enter the string pattern that you want to check in the reads")
