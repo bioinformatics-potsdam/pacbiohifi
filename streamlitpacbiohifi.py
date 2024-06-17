@@ -2,6 +2,8 @@
 # Univeristat Potsdam
 # Date 2024-5-6
 # a streamlit application for the pacbiohifi from the sequencing to the read
+
+
 import streamlit as st
 import pandas as pd
 import streamlit.components.v1 as components
@@ -18,12 +20,14 @@ st.subheader("Developed by Gaurav Sablok, Academic Staff Member, Bioinformatics,
 help = st.button("Display the help toggle button")
 if help:
     st.write("The following options are present in the Streamlit PacBioHifi application")
-    st.write("1. FASTQ reader")
-    st.write("2. FASTQ to FASTA converter")
-    st.write("3. FASTQ filter")
+    st.write("1. FASTQ reader: reads pacbiohifi reads and plots them")
+    st.write("2. FASTQ to FASTA converter: read the pacbiohifi reads and converts them to the fasta")
+    st.write("3. FASTQ filter: filter the pacbiohifi reads with the specific clip sequences")
     st.write("4. FASTQ/FASTA length plotter")
-    st.write("5. ReadChecker")
-    st.write("6. ReadExtractor")
+    st.write("5. ReadChecker: checks the reads for the dna strings and plot the \
+              before and after those reads, supports the output fasta file writing ")
+    st.write("6. ReadExtractor: extracts the reads with the specific dna patterns and plots the before \
+        and after them ")
 
 # multi option display menu from the read analysis to the read string checker and the read extractor.
 
@@ -102,10 +106,9 @@ if options == "FASTA/FASTQ Read Analysis":
                 for i in range(len(fastq_names)):
                     writefile.write(f">{fastq_names[i]}\n{fastq_sequences[i]}\n")
 
-if option == "FASTA/FASTQ read string checker":
-    storingstring = st.text_input("Please enter the string pattern that you want to check in the reads")
-    patternstring = st.text_input("Please enter the string that you want to extract")
-    if storingstring and st.button("check sequence pattern"):
+if options == "FASTA/FASTQ read string checker":
+    store = st.text_input("Please enter the dna string that you want to check in the reads")
+    if store and st.button("check sequence pattern"):
         st.markdown("This option is only available for the fasta files")
         readpatternplot = st.checkbox("Do you want to plot the reads with the pattern")
         if not readplot:
@@ -123,7 +126,7 @@ if option == "FASTA/FASTQ read string checker":
             fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
             selectedones = {}
             for i in range(len(fasta_seq)):
-                if storingstring in fasta_seq[i]:
+                if store in fasta_seq[i]:
                     selectedones[fasta_names[i]] = fasta_seq[i]
             with open(filepath, "w") as writefile:
                 for k,v in selectedones.items():
@@ -144,7 +147,7 @@ if option == "FASTA/FASTQ read string checker":
             fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
             selectedones = {}
             for i in range(len(fasta_seq)):
-                if storingstring in fasta_seq[i]:
+                if store in fasta_seq[i]:
                     selectedones[fasta_names[i]] = fasta_seq[i]
             with open(filepath, "w") as writefile:
                 for k,v in selectedones.items():
@@ -154,8 +157,8 @@ if option == "FASTA/FASTQ read string checker":
             selectedlength = list(map(lambda n: len(n),list(selectedones.values())))
             st.bar_chart(selectedlength)
 
-storingstring = st.text_input("Please enter the string pattern that you want to check in the reads")
-if storingstring and st.button("check sequence pattern"):
+sequencestring = st.text_input("Please enter the string pattern that you want to check in the reads")
+if sequencestring and st.button("check sequence pattern"):
     st.markdown("This option is only available for the fasta files")
     readpatternplot = st.checkbox("Do you want to plot the reads with the pattern")
     filepath = st.text_input("Please enter the path for the fasta files")
@@ -172,7 +175,7 @@ if storingstring and st.button("check sequence pattern"):
     fasta_names = [i.replace(">", "")for i in (list(fasta_dict.keys()))]
     selectedones = {}
     for i in range(len(fasta_seq)):
-        if storingstring in fasta_seq[i]:
+        if sequencestring in fasta_seq[i]:
             selectedones[fasta_names[i]] = fasta_seq[i]
     with open(filepath, "w") as writefile:
         for k,v in selectedones.items():
@@ -202,7 +205,6 @@ if storingstring and st.button("check sequence pattern"):
     names = list(selectedones.keys())
     selectedlength = list(map(lambda n: len(n),list(selectedones.values())))
     st.bar_chart(selectedlength)
-
 
  # filtering the reads according to the read length and plotting them before and after
 
