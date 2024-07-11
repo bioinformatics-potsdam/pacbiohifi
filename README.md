@@ -15,8 +15,6 @@ streamlit run streamlitpacbiohifi.py
 - These are indiviual components and a multi page application in development mode, which will give you all access to PacBioHifi from sequence to graphs.
 - The app will open like this. You can paste the file path and fetch the names, sequences and plot the lengthe distribution. it supports both the fastq and the fasta PacBioHifi and if the write option is selected, it will write the fasta files also. 
 
-![streamlit-pacbiohifi](https://github.com/gauravearn/streamlit-pacbiohifi/blob/main/streamlitpacbiohifi_multiple.png)
-
 Gaurav \
 Academic Staff Member \
 Bioinformatics \
